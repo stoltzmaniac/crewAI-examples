@@ -18,11 +18,12 @@ class SearchTools():
     }
     response = requests.request("POST", url, headers=headers, data=payload)
     results = response.json()['organic']
-    stirng = []
-    for result in results:
-      stirng.append('\n'.join([
-          f"Title: {result['title']}", f"Link: {result['link']}",
-          f"Snippet: {result['snippet']}", "\n-----------------"
-      ]))
-
+    stirng = [
+        '\n'.join([
+            f"Title: {result['title']}",
+            f"Link: {result['link']}",
+            f"Snippet: {result['snippet']}",
+            "\n-----------------",
+        ]) for result in results
+    ]
     return '\n'.join(stirng)
