@@ -35,9 +35,8 @@ class SECTools():
     }
 
     fillings = queryApi.get_filings(query)['filings']
-    link = fillings[0]['linkToFilingDetails']    
-    answer = SECTools.__embedding_search(link, ask)
-    return answer
+    link = fillings[0]['linkToFilingDetails']
+    return SECTools.__embedding_search(link, ask)
 
   @tool("Search 10-K form")
   def search_10k(data):
@@ -64,11 +63,10 @@ class SECTools():
 
     fillings = queryApi.get_filings(query)['filings']
     link = fillings[0]['linkToFilingDetails']
-    answer = SECTools.__embedding_search(link, ask)
-    return answer
+    return SECTools.__embedding_search(link, ask)
   
-  def __embedding_search(url, ask):
-    text = SECTools.__download_form_html(url)
+  def __embedding_search(self, ask):
+    text = SECTools.__download_form_html(self)
     elements = partition_html(text=text)
     content = "\n".join([str(el) for el in elements])
     text_splitter = CharacterTextSplitter(
@@ -86,7 +84,7 @@ class SECTools():
     answers = "\n\n".join([a.page_content for a in answers])
     return answers
 
-  def __download_form_html(url):    
+  def __download_form_html(self):    
     headers = {
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -104,5 +102,5 @@ class SECTools():
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(self, headers=headers)
     return response.text

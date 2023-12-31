@@ -50,8 +50,7 @@ class TripCrew:
       verbose=True
     )
 
-    result = crew.kickoff()
-    return result
+    return crew.kickoff()
 
 if __name__ == "__main__":
   print("## Welcome to Trip Planner Crew")

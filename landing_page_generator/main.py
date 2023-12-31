@@ -40,8 +40,7 @@ class LandingPageCrew():
       tasks=[expand_idea_task, refine_idea_task],
       verbose=True
     )
-    expanded_idea = crew.kickoff()
-    return expanded_idea
+    return crew.kickoff()
 
   def __choose_template(self, expanded_idea):
     choose_tempalte_taks = Task(
@@ -61,8 +60,7 @@ class LandingPageCrew():
       tasks=[choose_tempalte_taks, update_page],
       verbose=True
     )
-    components = crew.kickoff()
-    return components
+    return crew.kickoff()
 
   def __update_components(self, components, expanded_idea):
     components = components.replace("\n", "").replace(" ",
